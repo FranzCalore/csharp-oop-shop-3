@@ -194,7 +194,8 @@ namespace CS_Shop_3
 
         public static double ConvertitoreEuroYen(double euro)
         {
-            double prezzoInYen = euro * 143.54;
+            const double YeninEuro = 143.54;
+            double prezzoInYen = euro * YeninEuro;
             return prezzoInYen;
         }
     }

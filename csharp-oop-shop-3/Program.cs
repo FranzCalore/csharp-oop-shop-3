@@ -29,7 +29,12 @@ try
     Prodotto.OggettiGeneratiConSuccesso++;
     carrelloDellaSpesa.Add(bubblegum);
 }
-catch (Exception e)
+catch (ParameterCannotBeEmptyException e)
+{
+    Console.WriteLine(e.Message);
+}
+
+catch (CannotBeNegativeException e)
 {
     Console.WriteLine(e.Message);
 }
@@ -40,7 +45,12 @@ try
     Prodotto.OggettiGeneratiConSuccesso++;
     carrelloDellaSpesa.Add(Pokemon);
 }
-catch (Exception e)
+catch (ParameterCannotBeEmptyException e)
+{
+    Console.WriteLine(e.Message);
+}
+
+catch (CannotBeNegativeException e)
 {
     Console.WriteLine(e.Message);
 }
@@ -51,7 +61,12 @@ try
     Prodotto.OggettiGeneratiConSuccesso++;
     carrelloDellaSpesa.Add(sacchettoArance);
 }
-catch (Exception e)
+catch (ParameterCannotBeEmptyException e)
+{
+    Console.WriteLine(e.Message);
+}
+
+catch (CannotBeNegativeException e)
 {
     Console.WriteLine(e.Message);
 }
@@ -62,7 +77,12 @@ try
     Prodotto.OggettiGeneratiConSuccesso++;
     carrelloDellaSpesa.Add(lavatriceBosch);
 }
-catch (Exception e)
+catch (ParameterCannotBeEmptyException e)
+{
+    Console.WriteLine(e.Message);
+}
+
+catch (CannotBeNegativeException e)
 {
     Console.WriteLine(e.Message);
 }
