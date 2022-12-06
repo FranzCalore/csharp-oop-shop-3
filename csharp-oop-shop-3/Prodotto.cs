@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using csharp_oop_shop_3.Custom_Exception;
 
-namespace CS_Shop_2
+namespace CS_Shop_3
 {
     public class Prodotto
     {
@@ -13,6 +14,8 @@ namespace CS_Shop_2
         private string description;
         private double prezzo;
         private double IVA;
+        private static int OggettiGenerati;
+        internal static int OggettiGeneratiConSuccesso;
 
         /// <summary>
         /// In questo Costruttore di base sono già presenti obbligatoriamente nome, prezzo e IVA, in quanto base obbligatoria per qualsiasi prodotto in vendita
@@ -22,9 +25,22 @@ namespace CS_Shop_2
         /// <param name="IVA">l'IVA non ha bisogno di essere presentata in percentuale, ma semplicemente in numero</param>
         public Prodotto(string name, double prezzo, double IVA)
         {
+            OggettiGenerati++;
             this.codice = CalcoloCodice();
+            if (name == "" || name == null)
+            {
+                throw new ParameterCannotBeEmptyException("name", "Il nome non può essere lasciato vuoto");
+            }
             this.name = name;
+            if (prezzo <= 0)
+            {
+                throw new CannotBeNegativeException("prezzo", "Il prezzo non può essere negativo");
+            }
             this.prezzo = Math.Round(prezzo,2); //In questo passaggio arrotondo il prezzo a due cifre decimali
+            if (IVA <= 0)
+            {
+                throw new CannotBeNegativeException("IVA", "L'IVA non può essere lasciata nulla");
+            }
             this.IVA = IVA;
         }
 
@@ -37,10 +53,23 @@ namespace CS_Shop_2
         /// <param name="IVA">l'IVA non ha bisogno di essere presentata in percentuale, ma semplicemente in numero</param>
         public Prodotto(string name, string description, double prezzo, double IVA)
         {
+            OggettiGenerati++;
             this.codice = CalcoloCodice();
+            if (name == "" || name == null)
+            {
+                throw new ParameterCannotBeEmptyException("name", "Il nome non può essere lasciato vuoto");
+            }
             this.name = name;
             this.description = description;
-            this.prezzo = Math.Round(prezzo, 2);
+            if (prezzo <= 0)
+            {
+                throw new CannotBeNegativeException("prezzo", "Il prezzo non può essere negativo");
+            }
+            this.prezzo = Math.Round(prezzo, 2); //In questo passaggio arrotondo il prezzo a due cifre decimali
+            if (IVA <= 0)
+            {
+                throw new CannotBeNegativeException("IVA", "L'IVA non può essere lasciata nulla");
+            }
             this.IVA = IVA;
         }
 
@@ -56,6 +85,10 @@ namespace CS_Shop_2
 
         public void SetName(string name)
         {
+            if (name == "" || name == null)
+            {
+                throw new ParameterCannotBeEmptyException("name", "Il nome non può essere lasciato vuoto");
+            }
             this.name = name;
         }
 
@@ -82,16 +115,18 @@ namespace CS_Shop_2
 
         }
 
+        public static int GetNumeroOggetti()
+        {
+            return OggettiGenerati;
+        }
+
         public void SetPrezzo(double prezzo)
         {
-            if (prezzo > 0)
+            if (prezzo <= 0)
             {
-                this.prezzo = prezzo;
+                throw new CannotBeNegativeException("prezzo", "Il prezzo non può essere lasciato vuoto");
             }
-            else
-            {
-                Console.WriteLine("Il prezzo non può avere un valore negativo!");
-            }
+            this.prezzo = Math.Round(prezzo, 2);
         }
 
         public double GetIVA()
@@ -101,6 +136,10 @@ namespace CS_Shop_2
 
         public void SetIVA(double IVA)
         {
+            if (IVA <= 0)
+            {
+                throw new CannotBeNegativeException("IVA", "L'IVA non può essere lasciata nulla");
+            }
             this.IVA = IVA;
         }
 
@@ -140,18 +179,17 @@ namespace CS_Shop_2
             return codiceStringa + this.name;
         }
 
-        public virtual void StampaProdotto()
+        public override string ToString()
         {
-            Console.WriteLine("------ " + this.name + " -----");
-            Console.WriteLine();
-            Console.WriteLine(this.description);
-            Console.WriteLine("Il codice del prodotto è: " + this.codice);
-            Console.WriteLine("Il prezzo senza IVA del prodotto è: " + this.StampaPrezzoBase());
-            Console.WriteLine("Il prezzo comprensivo di IVA è: " + this.StampaPrezzoIVA());
-            Console.WriteLine("L'IVA del prodotto è al: " + this.IVA + "%");
-            Console.WriteLine();
-            Console.WriteLine("Il codice NomeEsteso è: " + this.GetNomeEsteso());
-            Console.WriteLine();
+            string stringaProdotto = "";
+            stringaProdotto = "------ " + this.name + " -----\n";
+            stringaProdotto += this.description;
+            stringaProdotto +="\n\nIl codice del prodotto è: " + this.codice;
+            stringaProdotto +="\nIl prezzo senza IVA del prodotto è: " + this.StampaPrezzoBase();
+            stringaProdotto +="\nIl prezzo comprensivo di IVA è: " + this.StampaPrezzoIVA();
+            stringaProdotto +="\nL'IVA del prodotto è al: " + this.IVA + "%\n\n";
+            stringaProdotto +="\nIl codice NomeEsteso è: " + this.GetNomeEsteso();
+            return stringaProdotto;
         }
     }
 

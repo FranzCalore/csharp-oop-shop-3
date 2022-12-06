@@ -4,8 +4,9 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using csharp_oop_shop_3.Custom_Exception;
 
-namespace CS_Shop_2
+namespace CS_Shop_3
 {
     public class Sacchetto_di_frutta:Prodotto
     {
@@ -17,8 +18,17 @@ namespace CS_Shop_2
 
         public Sacchetto_di_frutta(string name, string description, double prezzo, double IVA, uint numeroFrutti, double pesoSacchetto, string tipoFrutto):base(name,description,prezzo,IVA)
         {
+
             this.numeroFrutti = numeroFrutti;
+            if(tipoFrutto == null || tipoFrutto == "")
+            {
+                throw new ParameterCannotBeEmptyException("tipoFrutto", "tipoFrutto deve essere settato correttamente");
+            }
             this.tipoFrutto = tipoFrutto;
+            if (pesoSacchetto <= 0)
+            {
+                throw new CannotBeNegativeException("pesoSacchetto", "il peso del sacchetto non può essere negativo");
+            }
             this.pesoSacchetto= pesoSacchetto;
             this.pesoFrutto = PesoFrutto();
         }

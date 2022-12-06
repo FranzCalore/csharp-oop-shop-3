@@ -4,8 +4,9 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using csharp_oop_shop_3.Custom_Exception;
 
-namespace CS_Shop_2
+namespace CS_Shop_3
 {
 
     public class Videogioco : Prodotto
@@ -17,6 +18,10 @@ namespace CS_Shop_2
 
         public Videogioco(string name, string description, double prezzo, double IVA, string studioDiSviluppo, bool soloDigitale=false, bool guidaStrategica = false) : base(name, description, prezzo, IVA)
         {
+            if (studioDiSviluppo==null || studioDiSviluppo == "")
+            {
+                throw new ParameterCannotBeEmptyException("studioDiSviluppo", "Un gioco deve avere uno studio di sviluppo");
+            }
             this.studioDiSviluppo = studioDiSviluppo;
             this.soloDigitale = soloDigitale;
         }
@@ -42,20 +47,19 @@ namespace CS_Shop_2
             }
         }
 
-        public override void StampaProdotto()
+        public override string ToString()
         {
-            Console.WriteLine("------ " + this.GetName() + " -----");
-            Console.WriteLine();
-            Console.WriteLine(this.GetDescription());
-            Console.WriteLine("Sviluppato da: " + this.GetStudioDiSviluppo());
-            Console.WriteLine("Guida Strategica Inclusa: " + this.YesOrNot(this.guidaStrategica));
-            Console.WriteLine("Il codice del prodotto è: " + this.GetCodice());
-            Console.WriteLine("Il prezzo senza IVA del prodotto è: " + this.StampaPrezzoBase());
-            Console.WriteLine("Il prezzo comprensivo di IVA è: " + this.StampaPrezzoIVA());
-            Console.WriteLine("L'IVA del prodotto è al: " + this.GetIVA() + "%");
-            Console.WriteLine();
-            Console.WriteLine("Il codice NomeEsteso è: " + this.GetNomeEsteso());
-            Console.WriteLine();
+            string stringaProdotto = "";
+            stringaProdotto = "------ " + base.GetName() + " -----\n";
+            stringaProdotto += base.GetDescription();
+            stringaProdotto += "\nSviluppato da: " + this.GetStudioDiSviluppo();
+            stringaProdotto += "\nGuida Strategica Inclusa: " + this.YesOrNot(this.guidaStrategica);
+            stringaProdotto += "\n\nIl codice del prodotto è: " + base.GetCodice();
+            stringaProdotto += "\nIl prezzo senza IVA del prodotto è: " + this.StampaPrezzoBase();
+            stringaProdotto += "\nIl prezzo comprensivo di IVA è: " + this.StampaPrezzoIVA();
+            stringaProdotto += "\nL'IVA del prodotto è al: " + base.GetIVA() + "%\n\n";
+            stringaProdotto += "\nIl codice NomeEsteso è: " + this.GetNomeEsteso();
+            return stringaProdotto;
         }
 
         private string YesOrNot(bool boolean)
