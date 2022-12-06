@@ -90,4 +90,7 @@ foreach (Prodotto articolo in carrelloDellaSpesa)
    
 }
 
-Console.Write("Oggetti Generati con Successo: "+ Prodotto.OggettiGeneratiConSuccesso + " su " + Prodotto.GetNumeroOggetti() +" tentati");
+Console.WriteLine("\n\nOggetti Generati con Successo: "+ Prodotto.OggettiGeneratiConSuccesso + " su " + Prodotto.GetNumeroOggetti() +" tentati");
+
+
+Console.WriteLine("\n\n100 euro corrispondono a: " + Prodotto.ConvertitoreEuroYen(100) + "yen"); //Provo il convertitore

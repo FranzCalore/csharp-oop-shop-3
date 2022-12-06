@@ -39,7 +39,7 @@ namespace CS_Shop_3
             this.prezzo = Math.Round(prezzo,2); //In questo passaggio arrotondo il prezzo a due cifre decimali
             if (IVA <= 0)
             {
-                throw new CannotBeNegativeException("IVA", "L'IVA non può essere lasciata nulla");
+                throw new CannotBeNegativeException("IVA", "L'IVA non può essere negativa, evasore!");
             }
             this.IVA = IVA;
         }
@@ -191,6 +191,13 @@ namespace CS_Shop_3
             stringaProdotto +="\nIl codice NomeEsteso è: " + this.GetNomeEsteso();
             return stringaProdotto;
         }
+
+        public static double ConvertitoreEuroYen(double euro)
+        {
+            double prezzoInYen = euro * 143.54;
+            return prezzoInYen;
+        }
     }
+
 
 }
